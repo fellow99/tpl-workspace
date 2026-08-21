@@ -1,0 +1,76 @@
+# ============================================================
+# Docker build context ignore rules
+# 加速构建上下文传输，排除不需要的大文件和构建产物
+# ============================================================
+
+# --- 构建产物 ---
+**/target/
+**/dist/
+**/dist-ssr/
+**/.tsbuildinfo
+**/.vite-temp/
+
+# --- 依赖缓存 ---
+**/node_modules/
+**/.pnpm-store/
+
+# --- 版本控制 ---
+**/.git/
+**/.gitignore
+**/.gitattributes
+
+# --- IDE / 编辑器 ---
+**/.idea/
+**/.vscode/
+**/.codex/
+**/.opencode/
+**/*.iml
+**/.project
+**/.classpath
+**/.settings/
+
+# --- 操作系统 ---
+**/.DS_Store
+**/Thumbs.db
+**/desktop.ini
+
+# --- 文档 (保留 deploy/README.md) ---
+**/*.md
+!deploy/README.md
+
+# --- 日志 ---
+**/*.log
+**/logs/
+**/nohup.out
+
+# --- 临时文件 ---
+**/*.tmp
+**/*.swp
+**/*.swo
+**/*~
+
+# --- 环境变量 (本地) ---
+**/.env.local
+**/.env.*.local
+deploy/.env
+
+# --- 测试 ---
+**/__tests__/
+**/*.test.*
+**/*.spec.*
+
+# --- Docker 自身 ---
+**/Dockerfile*
+**/.dockerignore
+**/docker-compose*.yml
+!deploy/docker-compose.yml
+
+# --- Maven ---
+**/.m2/
+**/mvnw
+**/.mvn/
+
+# --- 其他 ---
+**/*.drawio
+# 注意：不排除图片资源，因为前端构建需要 src/assets/ 下的图片
+# **/*.png 和 **/*.jpg 已移除
