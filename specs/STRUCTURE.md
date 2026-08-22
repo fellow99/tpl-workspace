@@ -75,7 +75,7 @@ tpl-workspace/
 | **tpl-app-web** | Vue 3.5 / TypeScript / Vite / Pinia / Axios / 纯 CSS | 5173（dev） | `/web` | 无 UI 框架，DESIGN.md 设计系统 |
 | **tpl-app-android** | Kotlin / Jetpack / MVVM / Retrofit | — | — | applicationId `org.fellow99.tpl.TplAppAndroid` |
 | **tpl-app-harmony** | ArkTS / ArkUI / Stage Model / HAP+HAR | — | — | bundleName `org.fellow99.tpl.TplAppHarmony` |
-| **tpl-app-mini** | TypeScript / Skyline / glass-easel | — | — | AppID `wx6f403bf72762b0c3` |
+| **tpl-app-mini** | TypeScript / Skyline / glass-easel | — | — | AppID `wxChangeMe` |
 
 ---
 
