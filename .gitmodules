@@ -1,0 +1,27 @@
+[submodule "RuoYi-Vue-Plus"]
+	path = RuoYi-Vue-Plus
+	url = https://github.com/fellow99/RuoYi-Vue-Plus.git
+[submodule "RuoYi-Vue-Plus-UI"]
+	path = RuoYi-Vue-Plus-UI
+	url = https://github.com/fellow99/RuoYi-Vue-Plus-UI.git
+[submodule "tpl-app-android"]
+	path = tpl-app-android
+	url = https://github.com/fellow99/tpl-app-android.git
+[submodule "tpl-app-api"]
+	path = tpl-app-api
+	url = https://github.com/fellow99/tpl-app-api.git
+[submodule "tpl-app-harmony"]
+	path = tpl-app-harmony
+	url = https://github.com/fellow99/tpl-app-harmony.git
+[submodule "tpl-app-mini"]
+	path = tpl-app-mini
+	url = https://github.com/fellow99/tpl-app-mini.git
+[submodule "tpl-app-web"]
+	path = tpl-app-web
+	url = https://github.com/fellow99/tpl-app-web.git
+[submodule "tpl-manage"]
+	path = tpl-manage
+	url = https://github.com/fellow99/tpl-manage.git
+[submodule "tpl-manage-ui"]
+	path = tpl-manage-ui
+	url = https://github.com/fellow99/tpl-manage-ui.git
