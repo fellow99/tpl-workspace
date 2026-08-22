@@ -1,4 +1,4 @@
-﻿# 主题皮肤支持 功能规格
+# 主题皮肤支持 功能规格
 
 > 模块：005-theme（需求编号 005-theme）
 > 状态：实现中
@@ -43,7 +43,7 @@
 
 - FR-005-001: 父工程 MUST 建立 `specs/005-theme/var.md`，作为全产品线颜色的唯一事实源。
 - FR-005-002: var.md MUST 采用**角色命名为主 + DESIGN.md 色彩名别名保留**的变量体系（`--color-primary` 主，`--indigo: var(--color-primary)` 别名）。
-- FR-005-004: var.md MUST 为同一变量名提供「default（破茧亮色）」与「dark（护眼暗色）」两套取值。
+- FR-005-004: var.md MUST 为同一变量名提供「default（亮色）」与「dark（护眼暗色）」两套取值。
 - FR-005-005: 品牌主色 MUST 全产品线统一为靛青 `#3B5998`（含 mini 微信绿收敛、android 主色迁移）。
 - FR-005-006: 各端映射规则 MUST 在 var.md 明确：CSS/WXSS 原样 `--color-*`，Android/Harmony `-`→`_` 且去 `--`。
 
@@ -80,7 +80,7 @@
 
 | 状态 | 值 | 语义 |
 |------|-----|------|
-| 浅色 | `light` | 强制「破茧」亮色皮肤 |
+| 浅色 | `light` | 强制 tpl-workspace亮色皮肤 |
 | 深色 | `dark` | 强制「护眼暗色」皮肤 |
 | 跟随系统 | `system`（默认） | 跟随系统深浅色，动态解析 |
 
@@ -140,7 +140,7 @@ DESIGN.md 色彩名别名：`--indigo: var(--color-primary)`、`--gold: var(--co
 
 ## 8. 依赖
 
-- 上游：父工程 `DESIGN.md`（「破茧」设计系统色板）、`specs/constitution.md`（原则 1/3/8）。
+- 上游：父工程 `DESIGN.md`（设计系统色板）、`specs/constitution.md`（原则 1/3/8）。
 - 下游：tpl-app-web / tpl-app-android / tpl-app-harmony / tpl-app-mini（各端落地实现）。
 - 参考：RuoYi-Vue-Plus-UI（CSS 变量 + `html.dark` 切换 + `useDark` 持久化）。
 - 无后端依赖（主题为纯前端本地偏好）。
