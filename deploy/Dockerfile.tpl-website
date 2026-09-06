@@ -1,0 +1,37 @@
+# ============================================================
+# tpl-website 官网 Dockerfile — 多阶段构建
+# 阶段1: 文件筛选 (scratch) —— 只保留网站相关内容
+#   *.html / images/ / js/ / style/
+#   （排除 README.md、LICENSE、.gitignore 等）
+# 阶段2: Nginx 静态文件服务
+# ============================================================
+
+# ---- Stage 1: 文件筛选 ----
+FROM scratch AS files
+
+# 只拷贝官网相关内容
+COPY tpl-website/*.html ./
+COPY tpl-website/images/ ./images/
+COPY tpl-website/js/ ./js/
+COPY tpl-website/style/ ./style/
+
+# ---- Stage 2: Nginx 静态文件服务 ----
+FROM nginx:latest
+
+# 时区
+ENV TZ=Asia/Shanghai
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+# 从筛选阶段复制官网静态文件
+COPY --from=files / /usr/share/nginx/html
+
+# 复制容器内部 nginx 配置
+COPY deploy/nginx/tpl-website.conf /etc/nginx/conf.d/default.conf
+
+# 健康检查
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 --start-period=10s \
+    CMD curl -f http://localhost:80/index.html || exit 1
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]

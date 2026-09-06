@@ -189,6 +189,22 @@ services:
     # 健康检查由 Dockerfile 中的 HEALTHCHECK 定义
 
   # ============================================================
+  # tpl-website 介绍官网 (纯静态 - Nginx)
+  # ============================================================
+  tpl-website:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.tpl-website
+    image: fellow99/tpl-website:latest
+    container_name: tpl-website
+    restart: unless-stopped
+    environment:
+      TZ: Asia/Shanghai
+    networks:
+      - tpl-network
+    # 健康检查由 Dockerfile 中的 HEALTHCHECK 定义
+
+  # ============================================================
   # Nginx 总网关 (反向代理)
   # ============================================================
   nginx:
@@ -203,6 +219,8 @@ services:
       tpl-app-api:
         condition: service_started
       tpl-app-web:
+        condition: service_started
+      tpl-website:
         condition: service_started
     environment:
       TZ: Asia/Shanghai
