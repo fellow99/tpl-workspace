@@ -1,0 +1,79 @@
+# ============================================================
+# tpl-website 官网 → GitHub Pages 部署
+# 发布目标：https://fellow99.github.io/tpl-website/  （项目页 / Project Page）
+#
+# 说明：
+#   - 本仓库为 fellow99/tpl-workspace，发布到用户页下的 /tpl-website/ 子路径。
+#   - tpl-website 是子模块，需 submodules: recursive 检出。
+#   - 仅发布官网静态资源（*.html / images/ / js/ / style/），与 Docker 构建保持一致。
+#   - index.html 内含 <base href="/tpl-website/">，使资源在子路径下正确解析。
+#   - 使用官方 actions/deploy-pages + actions/upload-pages-artifact（现代 Pages 部署）。
+#
+# 触发：
+#   - 推送到 main 且 tpl-website/ 有变更
+#   - 手动触发（workflow_dispatch）
+#   - 定时每日构建
+# ============================================================
+
+name: Deploy Website (GitHub Pages)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "tpl-website/**"
+  workflow_dispatch:
+  schedule:
+    - cron: "0 1 * * *"
+
+# 仅授予 Pages 部署所需的最小权限
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 同一时间只跑一次；push 触发的新构建会取消运行中的旧构建
+concurrency:
+  group: pages-website
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+    # 项目页需配置 GITHUB_PAGES 环境（仓库 Settings → Pages → Source: GitHub Actions）
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # tpl-website 为子模块，需递归检出
+          submodules: recursive
+
+      # 仅挑选官网静态资源到独立目录（与 Dockerfile.tpl-website 的筛选一致）
+      - name: Stage static assets
+        run: |
+          mkdir -p site
+          cp tpl-website/*.html site/
+          cp -r tpl-website/images site/
+          cp -r tpl-website/js site/
+          cp -r tpl-website/style site/
+          echo "---- site/ contents ----"
+          find site -type f | sort
+
+      # 启用 GitHub Pages 并获取部署端点
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      # 上传静态站点产物
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      # 部署到 GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
