@@ -15,12 +15,13 @@ tpl-workspace 是一个 **多工程聚合的业务应用框架**，采用「管�
 │                         客户端层（Client）                        │
 │  tpl-app-web      tpl-app-android    tpl-app-harmony   tpl-app-mini   │
 │  (Vue3+TS)       (Kotlin)          (ArkTS)          (微信小程序)   │
+│  另有 tpl-website：品牌介绍官网（纯静态，Nginx 直出，不接入后端 API）       │
 └───────────────────────────┬──────────────────────────────────────┘
                             │ HTTPS REST（Sa-Token JWT）
                             ▼
 ┌──────────────────────────────────────────────────────────────────┐
 │                     Nginx 总网关（:80，宿主机 38088）              │
-│        /web/* → tpl-app-web   /tpl-manage-ui → tpl-manage-ui        │
+│   / → tpl-website（官网）  /web/* → tpl-app-web  /manage/* → tpl-manage-ui │
 │        /api/*、/auth/* → tpl-app-api   /admin/* → tpl-manage       │
 └───────────┬───────────────────────────┬──────────────────────────┘
             │                           │
@@ -72,6 +73,10 @@ tpl-app-api (独立 Spring Boot)  ◀──参考技术选型──  RuoYi-Vue-P
        ├── tpl-app-android (Kotlin)
        ├── tpl-app-harmony (ArkTS)
        └── tpl-app-mini   (微信小程序)
+
+tpl-website (品牌介绍官网，独立静态站)
+       · 纯原生 HTML/CSS/JS，无框架、无构建
+       · 不接入后端 API，Nginx 直出，挂网关根路径 `/`
 ```
 
 ### 2.3 数据库共享
@@ -171,6 +176,7 @@ tpl-manage（继承 RVP 全部能力）
 | tpl-manage-ui | 多阶段构建 | — | 80 | tpl-manage |
 | tpl-app-api | 多阶段构建 | 38082 | 8082 | postgres、redis |
 | tpl-app-web | 多阶段构建 | — | 80 | tpl-app-api |
+| tpl-website | 多阶段构建（仅拷贝静态文件） | — | 80 | — |
 | nginx | nginx:latest | 38088 | 80 | 上述全部 |
 
 ### 数据卷

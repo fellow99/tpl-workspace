@@ -31,6 +31,7 @@ tpl-workspace/
 │   ├── Dockerfile.tpl-manage-ui#   管理前端多阶段构建（pnpm → Nginx）
 │   ├── Dockerfile.tpl-app-api  #   用户侧后端多阶段构建
 │   ├── Dockerfile.tpl-app-web  #   用户侧前端多阶段构建
+│   ├── Dockerfile.tpl-website  #   官网静态文件筛选 → Nginx
 │   ├── nginx/                 #   Nginx 总网关 + 各前端 SPA 配置
 │   ├── sql/                   #   数据库初始化脚本
 │   └── README.md              #   部署指南
@@ -44,6 +45,7 @@ tpl-workspace/
 ├── tpl-manage-ui/             # 管理后台前端（alias 继承 RVP-UI）
 ├── tpl-app-api/               # 用户侧业务后端（独立工程，端口 8082）
 ├── tpl-app-web/               # 用户侧 Web（Vue 3 + Vite）
+├── tpl-website/               # 品牌介绍官网（原生 HTML/CSS/JS，浅色/暗色主题）
 ├── tpl-app-android/           # Android 客户端（Kotlin）
 ├── tpl-app-harmony/           # 鸿蒙客户端（ArkTS）
 └── tpl-app-mini/              # 微信小程序（TypeScript + Skyline）
@@ -51,7 +53,7 @@ tpl-workspace/
 
 ---
 
-## 二、子工程清单（9 个）
+## 二、子工程清单（10 个）
 
 ### 2.1 上游框架工程（不编译打包，仅被引用）
 
@@ -76,6 +78,7 @@ tpl-workspace/
 | **tpl-app-android** | Kotlin / Jetpack / MVVM / Retrofit | — | — | applicationId `org.fellow99.tpl.TplAppAndroid` |
 | **tpl-app-harmony** | ArkTS / ArkUI / Stage Model / HAP+HAR | — | — | bundleName `org.fellow99.tpl.TplAppHarmony` |
 | **tpl-app-mini** | TypeScript / Skyline / glass-easel | — | — | AppID `wxChangeMe` |
+| **tpl-website** | 原生 HTML / CSS / JS（无框架、无构建） | 内部 80 | `/`（网关根路径） | 品牌介绍官网，纯静态，浅色/暗色主题，不接入后端 API |
 
 ---
 
@@ -84,6 +87,7 @@ tpl-workspace/
 | 服务 | 本地端口 | Docker 映射 | 上下文路径 | 说明 |
 |------|---------|------------|-----------|------|
 | nginx 总网关 | — | 38088:80 | `/` | 反向代理 + 静态资源 |
+| tpl-website | — | 内部 80 | `/` | 品牌介绍官网（纯静态，Nginx 直出） |
 | tpl-manage | 8081 | 38081:8081 | `/admin/*` | 管理后台 API |
 | tpl-app-api | 8082 | 38082:8082 | `/api/*`、`/auth/*` | 用户侧 API |
 | tpl-manage-ui | 81（dev） | 内部 80 | `/tpl-manage-ui` | 管理后台 SPA |
@@ -106,6 +110,7 @@ tpl-workspace/
 | tpl-app-android | `tpl-app-android/specs/` | 001-app-shell、002-user-auth |
 | tpl-app-harmony | `tpl-app-harmony/specs/` | 001-app-shell、002-user-auth |
 | tpl-app-mini | `tpl-app-mini/specs/` | 001-app-shell、002-user-auth |
+| tpl-website | —（纯静态官网，不登记 specs） | — |
 | RuoYi-Vue-Plus | `RuoYi-Vue-Plus/specs/` | 上游框架（002-user ~ 019-build、feature-101~119） |
 | RuoYi-Vue-Plus-UI | `RuoYi-Vue-Plus-UI/specs/` | 上游框架（002-user ~ 102-demo、feature-120~122） |
 

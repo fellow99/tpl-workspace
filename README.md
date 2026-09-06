@@ -24,6 +24,7 @@
 | 能力 | 说明 |
 |------|------|
 | **多端覆盖** | 用户端 Web、Android、HarmonyOS、微信小程序，加 Web 管理后台，一套架构贯穿五端 |
+| **品牌官网** | 纯原生 HTML/CSS/JS 介绍官网，浅色/暗色主题，随框架一键部署，承载对外品牌展示 |
 | **双后端服务** | 用户端 API（独立 Spring Boot 服务）+ 管理端（RuoYi-Vue-Plus），职责清晰、可独立演进 |
 | **统一设计系统** | 一套 Design Tokens（色彩 / 字体 / 间距）跨端复用，保证多端视觉一致 |
 | **国际化** | 三语言（zh-CN / en-US / zh-TW）语料单一事实源，脚本自动同步到各端 |
@@ -77,6 +78,7 @@
 | 层级 | 技术 | 说明 |
 |------|------|------|
 | **用户端 Web** | Vue 3 + TypeScript + Vite | SPA，纯 CSS 设计系统，无 UI 框架依赖 |
+| **品牌官网** | 原生 HTML + CSS + JS | 介绍官网（简体中文），浅色/暗色主题，无框架、无构建 |
 | **管理端 Web** | RuoYi-Vue-Plus-UI（Vue 3 + Element Plus） | 开箱即用的后台管理系统 |
 | **用户端后端** | Spring Boot 4.1 + JDK 21 + Sa-Token + MyBatis-Plus | 独立 REST API 服务 |
 | **管理端后端** | RuoYi-Vue-Plus 6.0（Spring Boot + JDK 21） | 后台管理服务 |
@@ -95,6 +97,7 @@
 ```
 tpl-workspace/
 ├── tpl-app-web/          # 用户端 Web 应用 (Vue 3 + TypeScript)
+├── tpl-website/          # 品牌介绍官网 (原生 HTML/CSS/JS，浅色/暗色主题)
 ├── tpl-app-api/          # 用户端后端 (Spring Boot 4.1)
 ├── tpl-manage/           # 管理后台服务 (RuoYi-Vue-Plus)
 ├── tpl-manage-ui/        # 管理后台前端 (Vue 3 + Element Plus)
@@ -124,6 +127,7 @@ git clone --recurse-submodules <repo-url> && cd tpl-workspace
 docker compose -f deploy/docker-compose.yml up -d --build
 
 # 3. 访问
+#   品牌官网：    http://localhost:38088/
 #   用户端 Web：  http://localhost:38088/web/
 #   管理后台：    http://localhost:38088/manage/
 ```
