@@ -25,3 +25,6 @@
 [submodule "tpl-manage-ui"]
 	path = tpl-manage-ui
 	url = https://github.com/fellow99/tpl-manage-ui.git
+[submodule "tpl-website"]
+	path = tpl-website
+	url = https://github.com/fellow99/tpl-website.git
