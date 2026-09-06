@@ -8,7 +8,8 @@
 #   4. tpl-manage-ui  - 管理后台前端 Vue SPA (内部端口 80)
 #   5. tpl-app-api    - 核心业务 Spring Boot 服务 (端口 8082)
 #   6. tpl-app-web    - 用户端 Vue SPA (内部端口 80)
-#   7. nginx         - 总网关反向代理 (端口 80)
+#   7. tpl-website    - 介绍官网 纯静态 (内部端口 80)
+#   8. nginx         - 总网关反向代理 (端口 80)
 # 
 # 使用方式:
 #   docker compose -f deploy/docker-compose.yml up --build -d
