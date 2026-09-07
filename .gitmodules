@@ -28,3 +28,9 @@
 [submodule "tpl-website"]
 	path = tpl-website
 	url = https://github.com/fellow99/tpl-website.git
+[submodule "tpl-desktop"]
+	path = tpl-desktop
+	url = https://github.com/fellow99/tpl-desktop.git
+[submodule "tpl-desktop-plugin-demo"]
+	path = tpl-desktop-plugin-demo
+	url = https://github.com/fellow99/tpl-desktop-plugin-demo.git
