@@ -18,7 +18,7 @@ tpl-workspace 由 **12 个子工程** 组成，分属四类角色：
 | 上游框架（不编译） | RuoYi-Vue-Plus、RuoYi-Vue-Plus-UI | 被引用 |
 | 管理后台 | tpl-manage、tpl-manage-ui | Spring Boot 4.1 + Vue3/Element Plus |
 | 用户侧 | tpl-app-api、tpl-app-web、tpl-app-android、tpl-app-harmony、tpl-app-mini、tpl-website | Spring Boot 4.1.0 + 多端 + 静态官网 |
-| 桌面工作台 | tpl-desktop、tpl-desktop-plugin-demo | 纯前端 wujie 微前端（宿主 + 插件子应用） |
+| 桌面工作台（前端门户） | tpl-desktop、tpl-desktop-plugin-demo | 整体平台前端门户，纯前端 wujie 微前端（宿主 + 插件子应用） |
 
 ### 1.2 双后端策略
 
