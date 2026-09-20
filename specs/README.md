@@ -99,6 +99,8 @@
 
 > 编号与 `docs/` 设计文档一一对应。001（应用外壳）属于各子工程的工程脚手架模块，不在父工程产品功能模块范围。
 
+> **桌面工作台（独立产品线）**：`tpl-desktop` / `tpl-desktop-plugin-demo` 使用桌面线自有模块编号（`001`~`401`、`006`/`007` 及 `001`~`004`），与上表编号相互独立，不纳入父工程产品功能模块编号。详见各自 `specs/README.md`。
+
 ---
 
 ## 五、模块文档结构规范
@@ -135,6 +137,8 @@
 | tpl-app-android | [../tpl-app-android/specs/README.md](../tpl-app-android/specs/README.md) |
 | tpl-app-harmony | [../tpl-app-harmony/specs/README.md](../tpl-app-harmony/specs/README.md) |
 | tpl-app-mini | [../tpl-app-mini/specs/README.md](../tpl-app-mini/specs/README.md) |
+| tpl-desktop | [../tpl-desktop/specs/README.md](../tpl-desktop/specs/README.md) |
+| tpl-desktop-plugin-demo | [../tpl-desktop-plugin-demo/specs/README.md](../tpl-desktop-plugin-demo/specs/README.md) |
 | RuoYi-Vue-Plus | [../RuoYi-Vue-Plus/specs/README.md](../RuoYi-Vue-Plus/specs/README.md) |
 | RuoYi-Vue-Plus-UI | [../RuoYi-Vue-Plus-UI/specs/README.md](../RuoYi-Vue-Plus-UI/specs/README.md) |
 

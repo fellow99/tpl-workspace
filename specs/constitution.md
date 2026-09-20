@@ -192,3 +192,5 @@
 | 9 构建部署一致 | ✅ | ✅ | ✅ | ✅ | 部分 |
 
 > 说明：`⚠️` 标记为 MVP 阶段已知待改进项，详见各子工程 README「已知问题」章节。
+
+> **桌面工作台（独立产品线）**：`tpl-desktop` / `tpl-desktop-plugin-demo` 为纯前端工程（无数据库、无后端、不依赖 RuoYi），故原则 1（框架继承）、2（sys_* 零修改）、5（数据库共享隔离）、6（软删除审计字段）、9（构建部署一致，未纳入 docker 编排）不适用（N/A）；原则 3（命名规范）、7（设计系统）、8（安全基线）部分适用。其各自合规状态见 `tpl-desktop/specs/constitution.md` 与 `tpl-desktop-plugin-demo/specs/constitution.md`。

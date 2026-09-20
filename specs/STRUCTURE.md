@@ -48,12 +48,14 @@ tpl-workspace/
 ├── tpl-website/               # 品牌介绍官网（原生 HTML/CSS/JS，浅色/暗色主题）
 ├── tpl-app-android/           # Android 客户端（Kotlin）
 ├── tpl-app-harmony/           # 鸿蒙客户端（ArkTS）
-└── tpl-app-mini/              # 微信小程序（TypeScript + Skyline）
+├── tpl-app-mini/              # 微信小程序（TypeScript + Skyline）
+├── tpl-desktop/               # 桌面工作台（wujie 微前端宿主，多页面可视化桌面）
+└── tpl-desktop-plugin-demo/   # 桌面工作台插件示例（wujie 微前端子应用）
 ```
 
 ---
 
-## 二、子工程清单（10 个）
+## 二、子工程清单（12 个）
 
 ### 2.1 上游框架工程（不编译打包，仅被引用）
 
@@ -80,6 +82,13 @@ tpl-workspace/
 | **tpl-app-mini** | TypeScript / Skyline / glass-easel | — | — | AppID `wxChangeMe` |
 | **tpl-website** | 原生 HTML / CSS / JS（无框架、无构建） | 内部 80 | `/`（网关根路径） | 品牌介绍官网，纯静态，浅色/暗色主题，不接入后端 API |
 
+### 2.4 桌面工作台（Desktop Workbench · 独立产品线）
+
+| 工程 | 技术栈 | 端口 | 上下文路径 | 说明 |
+|------|--------|------|-----------|------|
+| **tpl-desktop** | Vue 3.5 / Vite 8 / Element Plus / GridStack.js 11 / Swiper 14 / wujie / Sass | 5173（dev） | `/` | wujie 微前端宿主，多页面可视化桌面，纯前端（认证 mock 降级） |
+| **tpl-desktop-plugin-demo** | Vue 3.5 / Vite 8 / dayjs / @number-flow/vue / Sass | 5273（dev） | `/tpl-desktop-plugin-demo/` | wujie 微前端子应用，提供 Demo Widget / App / 背景 / UI 组件 |
+
 ---
 
 ## 三、服务端口与上下文路径
@@ -92,6 +101,8 @@ tpl-workspace/
 | tpl-app-api | 8082 | 38082:8082 | `/api/*`、`/auth/*` | 用户侧 API |
 | tpl-manage-ui | 81（dev） | 内部 80 | `/tpl-manage-ui` | 管理后台 SPA |
 | tpl-app-web | 5173（dev） | 内部 80 | `/web` | 用户侧 SPA |
+| tpl-desktop | 5173（dev） | — | `/` | 桌面工作台（wujie 宿主，纯前端，不纳入 docker 编排） |
+| tpl-desktop-plugin-demo | 5273（dev） | — | `/tpl-desktop-plugin-demo/` | 桌面工作台插件子应用（纯前端，不纳入 docker 编排） |
 | postgres | 35432 | 35432:5432 | — | 业务数据库 `tpl_manage` |
 | redis | 36379 | 36379:6379 | — | 缓存 / Session |
 
@@ -111,6 +122,8 @@ tpl-workspace/
 | tpl-app-harmony | `tpl-app-harmony/specs/` | 001-app-shell、002-user-auth |
 | tpl-app-mini | `tpl-app-mini/specs/` | 001-app-shell、002-user-auth |
 | tpl-website | —（纯静态官网，不登记 specs） | — |
+| tpl-desktop | `tpl-desktop/specs/` | 001-desktop-framework、002-widget-system、003-app-system、004-background-system、005-theme-system、006-iconfont-emoji、007-wujie-system、011-auth-mock、101-prop-editor、201-page-index、301-widget-basic-widgets、401-app-basic-apps |
+| tpl-desktop-plugin-demo | `tpl-desktop-plugin-demo/specs/` | 001-wujie-adaptor、002-demo-widgets、003-demo-app、004-demo-backgrounds |
 | RuoYi-Vue-Plus | `RuoYi-Vue-Plus/specs/` | 上游框架（002-user ~ 019-build、feature-101~119） |
 | RuoYi-Vue-Plus-UI | `RuoYi-Vue-Plus-UI/specs/` | 上游框架（002-user ~ 102-demo、feature-120~122） |
 
@@ -123,6 +136,8 @@ tpl-workspace/
 | 编号 | 模块 | 设计文档 | 涉及子工程 |
 |------|------|---------|-----------|
 | 002 | 用户注册及登录（user-auth） | docs/002-用户注册及登录设计.md | tpl-app-api、tpl-app-web、tpl-manage、各多端 |
+
+> **桌面工作台（独立产品线）**：`tpl-desktop` / `tpl-desktop-plugin-demo` 使用**桌面线自有模块编号**（`001`~`401`、`006`/`007`），与父工程多端业务模块编号（`002`/`004`/`005`/`202`）相互独立。其模块规格文档分别位于各自 `specs/` 目录，父工程不重复编写，仅交叉引用。
 
 ---
 
@@ -164,6 +179,28 @@ tpl-app-web/src/
 ├── components/   # AppLayout.vue
 ├── views/        # LoginPage、RegisterPage、ProfilePage
 └── style.css     # Design Tokens + 全局样式
+```
+
+### tpl-desktop（wujie 微前端宿主 · Vue 3 SPA）
+
+```
+tpl-desktop/src/
+├── desktop.js              # Vue 应用入口（插件注册 + 全局挂载）
+├── pages/Desktop.vue       # 根组件 — 桌面编排中心
+├── components/             # desktop/ viewport/ property/ 三层组件
+├── composables/            # useGridStack / useTheme / use*Metas 模块级单例
+├── widgets/ apps/ backgrounds/  # import.meta.glob 自动扫描注册
+├── themes/                 # 浅色/深色 CSS 变量主题
+└── api/auth-service.js     # RSA 加密认证 + mock 降级
+```
+
+### tpl-desktop-plugin-demo（wujie 微前端子应用）
+
+```
+tpl-desktop-plugin-demo/src/
+├── main.js                 # 双模式入口（wujie 沙箱 / 独立调试）
+├── App.vue                 # 根组件
+└── widgets/ apps/ backgrounds/ components/  # import.meta.glob 零代码注册
 ```
 
 > 更多子工程源码结构详见各子工程 `README.md` 与 `specs/STRUCTURE.md`。

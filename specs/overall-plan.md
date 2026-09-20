@@ -11,13 +11,14 @@
 
 ### 1.1 工程拓扑
 
-tpl-workspace 由 **9 个子工程** 组成，分属三类角色：
+tpl-workspace 由 **12 个子工程** 组成，分属四类角色：
 
 | 角色 | 子工程 | 运行时 |
 |------|--------|--------|
 | 上游框架（不编译） | RuoYi-Vue-Plus、RuoYi-Vue-Plus-UI | 被引用 |
 | 管理后台 | tpl-manage、tpl-manage-ui | Spring Boot 4.1 + Vue3/Element Plus |
-| 用户侧 | tpl-app-api、tpl-app-web、tpl-app-android、tpl-app-harmony、tpl-app-mini | Spring Boot 4.1.0 + 多端 |
+| 用户侧 | tpl-app-api、tpl-app-web、tpl-app-android、tpl-app-harmony、tpl-app-mini、tpl-website | Spring Boot 4.1.0 + 多端 + 静态官网 |
+| 桌面工作台 | tpl-desktop、tpl-desktop-plugin-demo | 纯前端 wujie 微前端（宿主 + 插件子应用） |
 
 ### 1.2 双后端策略
 
@@ -86,6 +87,8 @@ sys_user（RuoYi 标准表，不改）──1:1──▶ tpl_user_profile（扩�
 | Android | MVVM | Fragment + ViewModel + Repository + Retrofit |
 | HarmonyOS | HAP+HAR 多模块 | Stage Model + ArkUI + AppStorage 状态共享 |
 | 小程序 | glass-easel Component | Skyline 渲染 + wx.request 封装 |
+| tpl-desktop | wujie 宿主 + Composition 单例 | 多页面桌面 + GridStack + import.meta.glob 注册 |
+| tpl-desktop-plugin-demo | wujie 子应用 | import.meta.glob 零代码注册 + plugin:ready 事件 |
 
 ---
 

@@ -44,6 +44,8 @@
 | tpl-app-android | `../tpl-app-android/specs/` | 11 份 | 001、002、004、005 |
 | tpl-app-harmony | `../tpl-app-harmony/specs/` | 11 份 | 001、002、004、005 |
 | tpl-app-mini | `../tpl-app-mini/specs/` | 11 份 | 001、002、004、005 |
+| tpl-desktop | `../tpl-desktop/specs/` | 12 份 | 001~007、011、101、201、301、401（12 模块） |
+| tpl-desktop-plugin-demo | `../tpl-desktop-plugin-demo/specs/` | 12 份 | 001-wujie-adaptor、002-demo-widgets、003-demo-app、004-demo-backgrounds |
 | RuoYi-Vue-Plus | `../RuoYi-Vue-Plus/specs/` | 10 份 | 上游框架 |
 | RuoYi-Vue-Plus-UI | `../RuoYi-Vue-Plus-UI/specs/` | 10 份 | 上游框架 |
 

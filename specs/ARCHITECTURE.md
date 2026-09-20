@@ -45,6 +45,25 @@ tpl-workspace 是一个 **多工程聚合的业务应用框架**，采用「管�
         └──────────────────────────────────────────┘
 ```
 
+### 1.1 桌面工作台架构（独立产品线）
+
+`tpl-desktop` 与 `tpl-desktop-plugin-demo` 是**纯前端**产品线，不接入上述后端体系：
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  tpl-desktop（wujie 微前端宿主 · 多页面可视化桌面）            │
+│  多页面桌面 / 小部件系统 / App 应用 / 背景系统 / 主题系统       │
+│  认证（RSA + mock 降级）· 配置持久化（localStorage）           │
+│        │  public/PLUGINS.json 声明插件子应用                  │
+│        ▼                                                     │
+│  tpl-desktop-plugin-demo（wujie 微前端子应用）                 │
+│  import.meta.glob 自动扫描注册 Widget / App / 背景 / UI 组件  │
+│        │  window.__POWERED_BY_WUJIE__ 双模式（沙箱/独立调试）  │
+│        ▼                                                     │
+│  $wujie.bus.$emit('plugin:ready') ──▶ 宿主注册组件 + 注入元数据 │
+└─────────────────────────────────────────────────────────────┘
+```
+
 ---
 
 ## 二、子工程依赖关系
@@ -88,6 +107,21 @@ tpl-app-api 与 tpl-manage **共享同一 PostgreSQL 数据库**（`tpl_manage`�
 | `sys_*` | RuoYi 标准表 | 用户/角色/菜单/字典等，**不做修改** |
 | `tpl_*` | 业务表 | 用户扩展等 |
 | `tpl_*_view` | 业务视图 | 糅合 RuoYi 表与业务表 |
+
+### 2.4 桌面工作台依赖关系（独立产品线）
+
+```
+tpl-desktop（wujie 宿主）  ── PLUGINS.json 声明 + wujie 加载 ──▶  tpl-desktop-plugin-demo（插件子应用）
+        ▲                                                                 │
+        └──────────── plugin:ready 事件（组件 + 元数据）◀─────────────────┘
+```
+
+| 工程 | 关系 | 说明 |
+|------|------|------|
+| tpl-desktop | 宿主（独立） | wujie 微前端宿主，通过 `public/PLUGINS.json` 声明并加载插件子应用 |
+| tpl-desktop-plugin-demo | 插件子应用（独立） | 通过 `import.meta.glob` 自动扫描注册组件，`plugin:ready` 事件向宿主暴露 |
+
+> 两个工程均为纯前端，无数据库、无后端依赖，与多端业务框架（tpl-app-api / tpl-manage）之间**无任何运行时耦合**。
 
 ---
 
@@ -209,3 +243,5 @@ tpl-manage（继承 RVP 全部能力）
 | 产品功能模块 | tpl-app-api | tpl-app-web | tpl-manage | tpl-manage-ui | 多端（android/harmony/mini） |
 |-------------|-----------|-----------|-----------|-------------|---------------------------|
 | 002 用户注册登录 | ✅ 已实现 | ✅ 已实现 | ✅ 登录 | ✅ 登录 | 脚手架/规划 |
+
+> **桌面工作台模块映射**：桌面线模块（`001`~`401`、`006`/`007`）仅涉及 `tpl-desktop` 与 `tpl-desktop-plugin-demo` 两个纯前端工程，与上表多端业务模块无交叉，故不纳入本映射表。详见 `tpl-desktop/specs/` 与 `tpl-desktop-plugin-demo/specs/`。

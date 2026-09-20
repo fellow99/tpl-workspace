@@ -8,7 +8,7 @@
 
 ## 一、技术栈总览
 
-tpl-workspace 采用 **前后端分离 + 多平台前端** 架构，由 9 个子工程构成。整体技术栈遵循「管理后台继承 RuoYi-Vue-Plus 生态，用户侧独立轻量」的双轨策略。
+tpl-workspace 采用 **前后端分离 + 多平台前端** 架构，由 12 个子工程构成（含 2 个纯前端桌面工作台工程）。整体技术栈遵循「管理后台继承 RuoYi-Vue-Plus 生态，用户侧独立轻量」的双轨策略；桌面工作台为独立产品线，采用 wujie 微前端架构。
 
 | 层级 | 技术 | 说明 |
 |------|------|------|
@@ -20,6 +20,7 @@ tpl-workspace 采用 **前后端分离 + 多平台前端** 架构，由 9 个子
 | 对象存储 | MinIO | 用户上传文件 |
 | 前端 Web | Vue 3 + TypeScript + Vite | 用户侧无 UI 框架，管理端 Element Plus |
 | 移动端 | Kotlin / ArkTS / 微信小程序 | 三端原生 |
+| 桌面工作台 | Vue 3 + Vite + Element Plus + wujie | 纯前端，微前端宿主 + 插件子应用 |
 | 部署 | Docker Compose | 7 服务编排 + Nginx 总网关 |
 
 ---
@@ -102,7 +103,40 @@ tpl-workspace 采用 **前后端分离 + 多平台前端** 架构，由 9 个子
 
 ---
 
-## 五、构建与部署技术栈
+## 五、桌面工作台技术栈（独立产品线）
+
+### 5.1 tpl-desktop（wujie 微前端宿主）
+
+| 技术 | 版本 | 用途 |
+|------|------|------|
+| Vue | ^3.5.39 | 组件框架（Composition API + `<script setup>`） |
+| Vite + @vitejs/plugin-vue | ^8.1.4 / ^6.0.8 | 构建工具 |
+| wujie + wujie-vue3 | ^2.1.0 | 微前端宿主框架（加载插件子应用） |
+| Element Plus | ^2.11.7 | 对话框/抽屉/树形控件/消息提示 |
+| GridStack.js | ^11.5.1 | 小部件拖拽网格 |
+| Swiper + Embla Carousel | ^14.0.1 / ^8.6.0 | 页面翻页 / 背景选择轮播 |
+| Sass (SCSS) | ^1.101.0 | CSS 预处理（浅色/深色主题变量） |
+| jsencrypt | ^3.5.4 | RSA 登录加密 |
+| vue3-markdown | ^1.2.17 | Markdown 小部件渲染 |
+| @number-flow/vue | ^0.4.8 | 数字滚动动画 |
+| dayjs | ^1.11.19 | 时钟格式化 |
+| Lodash (cloneDeep) | ^4.17.21 | 属性编辑副本隔离 |
+
+### 5.2 tpl-desktop-plugin-demo（wujie 微前端子应用）
+
+| 技术 | 版本 | 用途 |
+|------|------|------|
+| Vue | ^3.5.39 | 组件框架 |
+| Vite + @vitejs/plugin-vue | ^8.1.4 / ^6.0.8 | 构建工具 + `import.meta.glob` |
+| dayjs | ^1.11.19 | DemoClock 时间格式化 |
+| @number-flow/vue | ^0.4.8 | DemoNumber 数字动画 |
+| Sass (SCSS) | ^1.101.0 | SCSS 编译 |
+
+> 注：`tpl-desktop-plugin-demo` 不直接依赖 wujie 包，运行时通过宿主注入的 `window.__POWERED_BY_WUJIE__` / `window.$wujie` 切换沙箱/独立调试双模式。
+
+---
+
+## 六、构建与部署技术栈
 
 | 技术 | 版本 | 用途 |
 |------|------|------|
@@ -117,7 +151,7 @@ tpl-workspace 采用 **前后端分离 + 多平台前端** 架构，由 9 个子
 
 ---
 
-## 六、开发环境要求
+## 七、开发环境要求
 
 | 软件 | 版本 | 说明 |
 |------|------|------|
