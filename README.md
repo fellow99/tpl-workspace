@@ -2,7 +2,7 @@
 
 > 多端业务应用框架 —— 一套工程骨架，覆盖 Web / Android / HarmonyOS / 微信小程序 / 管理后台，内置认证、国际化、主题与部署编排。
 
-[![License](https://img.shields.io/badge/license-Proprietary-red)](./LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.1-brightgreen)](./tpl-app-api)
 [![Vue](https://img.shields.io/badge/Vue-3.5-4FC08D?logo=vuedotjs)](./tpl-app-web)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15+-336791?logo=postgresql)](./)
@@ -149,4 +149,4 @@ docker compose -f deploy/docker-compose.yml up -d --build
 
 ## License
 
-Proprietary. All rights reserved.
+本项目基于 [MIT License](./LICENSE) 开源。
